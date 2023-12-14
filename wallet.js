@@ -1,3 +1,9 @@
+const API_KEY = "5ba636d8bbd06cb95381394b4118b1bc";
+let city_name = "Bucerías"
+let state_code = "Nayarit"
+let country_code = "MX"
+let limit = 1
+
 //  Definición de la clase Fecha, que representa la fecha actual
 class Fecha {
   constructor() {
@@ -43,13 +49,37 @@ let nombreCompletoLocalStorage = JSON.parse(nombreCompletoLocalStorageExtraer)
 let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 // Si el nombre está almacenado, se muestra un mensaje de bienvenida
 
-fetch('https://criptoya.com/api/dolar')
-    .then((response) => response.json()) //Transformo el contenido de la promesa a JSON
-    .then((info) => {
-      console.log(info)
+// Esta función consulta el servicio de geolocalización y luego configura el intervalo para obtener el clima.
+function consultarClimaBucerias() {
+  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`)
+    .then(response => response.json())
+    .then(datos => {
+      // Llamamos a la función para obtener el clima de inmediato
+      obtenerClima(datos[0].lat, datos[0].lon);
+
+      // Configuramos un intervalo para obtener el clima cada 99999 milisegundos (aproximadamente 1 minuto).
+      setInterval(() => obtenerClima(datos[0].lat, datos[0].lon), 600000);
     });
+}
 
+// Esta función obtiene el clima y actualiza el contenido en el HTML.
+function obtenerClima(lat, lon) {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+    .then(response => response.json())
+    .then(({ main, name, sys }) => {
+      let clima = document.getElementById("climaBucerias");
 
+      // Limpiamos el contenido existente antes de agregar uno nuevo.
+      clima.innerHTML = "";
+
+      const climaBucerias = document.createElement("div");
+      climaBucerias.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
+      clima.appendChild(climaBucerias);
+    });
+}
+consultarClimaBucerias();
+
+// API https://criptoya.com/
 fetch('https://criptoya.com/api/dolar')
     .then((response) => response.json()) //Transformo el contenido de la promesa a JSON
     .then(({ oficial, qatar, solidario}) => {

@@ -8,6 +8,13 @@
     align-items: center;
 }
 
+h6 {
+    color: grey;
+}
+
+marquee {
+    color: crimson;
+}
 
 .btn{
     text-decoration: none;
