@@ -80,31 +80,6 @@ async function obtenerClima(lat, lon) {
 
 consultarClimaBucerias();
 
-
-// function consultarClimaBucerias() {
-//   fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`)
-//     .then(response => response.json())
-//     .then(datos => {
-//       obtenerClima(datos[0].lat, datos[0].lon);
-//     })
-//     .catch(error => {
-//       swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
-//     });
-// }
-
-// function obtenerClima(lat, lon) {
-//   fetch(`https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
-//     .then(response => response.json())
-//     .then(({ main, name, sys }) => {
-//       let clima = document.getElementById("climaBucerias");
-//       clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
-//     })
-//     .catch(error => {
-//       swal('Error en la llamada a la API del clima:' + " " + error);
-//     });
-// }
-// consultarClimaBucerias();
-
 // API https://criptoya.com/
 fetch('https://criptoya.com/api/dolar')
     .then((response) => response.json()) //Transformo el contenido de la promesa a JSON
@@ -112,7 +87,7 @@ fetch('https://criptoya.com/api/dolar')
 
   if (nombreCompletoLocalStorage) {
     const bienvenidoDeNuevo = document.createElement("div")
-    bienvenidoDeNuevo.innerHTML= `<marquee width="400px" direction="left">Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario} </marquee>
+    bienvenidoDeNuevo.innerHTML= `<marquee behavior="scroll" width="400px" direction="left" scrollamount="2">Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario} </marquee>
                                   <h5>Bienvenido de nuevo:</h5>
                     <h3>${nombreCompletoLocalStorage}</h3>`
     bienvenidoUsuario.appendChild(bienvenidoDeNuevo)

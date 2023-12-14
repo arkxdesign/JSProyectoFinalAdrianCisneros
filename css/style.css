@@ -3,29 +3,12 @@
     padding: 0;
     box-sizing: border-box;
   }
-
+:root {
+    --bs-body-bg: #000000;
+    --bs-body-color: #ffffff;
+    --bs-emphasis-color: #ffffff;
+}
 /* Estilo predeterminado para el fondo del body */
-body {
-    background-color: #ffffff !important;  /* Color blanco como ejemplo */
-}
-
-/* Estilo específico para el modo de pantalla completa */
-body:fullscreen {
-    background-color: #ffffff !important;  /* Cambiar a color negro en pantalla completa */
-}
-
-body:-ms-fullscreen {
-    background-color: #ffffff !important;  /* Cambiar a color negro en pantalla completa para Internet Explorer */
-}
-
-body:-moz-full-screen {
-    background-color: #ffffff !important;  /* Cambiar a color negro en pantalla completa para Firefox */
-}
-
-body:-webkit-full-screen {
-    background-color: #ffffff !important;  /* Cambiar a color negro en pantalla completa para navegadores WebKit (Chrome, Safari, etc.) */
-}
-
 
 .container-fluid {
     justify-content: center;
