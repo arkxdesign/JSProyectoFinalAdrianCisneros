@@ -4,31 +4,6 @@ let state_code = "Nayarit"
 let country_code = "MX"
 let limit = 1
 
-// API http://api.openweathermap.org/
-function consultarClimaBucerias() {
-  fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`)
-    .then(response => response.json())
-    .then(datos => {
-      obtenerClima(datos[0].lat, datos[0].lon);
-    })
-    .catch(error => {
-      swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
-    });
-}
-
-function obtenerClima(lat, lon) {
-  fetch(`https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
-    .then(response => response.json())
-    .then(({ main, name, sys }) => {
-      let clima = document.getElementById("climaBucerias");
-      clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
-    })
-    .catch(error => {
-      swal('Error en la llamada a la API del clima:' + " " + error);
-    });
-}
-consultarClimaBucerias();
-
 //  Definición de la clase Fecha, que representa la fecha actual
 class Fecha {
   constructor() {
@@ -76,7 +51,7 @@ let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 
 // API http://api.openweathermap.org/
 function consultarClimaBucerias() {
-  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`)
+  fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`)
     .then(response => response.json())
     .then(datos => {
       obtenerClima(datos[0].lat, datos[0].lon);
@@ -87,7 +62,7 @@ function consultarClimaBucerias() {
 }
 
 function obtenerClima(lat, lon) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+  fetch(`https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
     .then(response => response.json())
     .then(({ main, name, sys }) => {
       let clima = document.getElementById("climaBucerias");
