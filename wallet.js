@@ -65,9 +65,6 @@ function obtenerClima(lat, lon) {
     .then(({ main, name, sys }) => {
       let clima = document.getElementById("climaBucerias");
       clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
-    })
-    .catch(error => {
-      swal('Error en la llamada a la API del clima:' + " " + error);
     });
 }
 consultarClimaBucerias();
