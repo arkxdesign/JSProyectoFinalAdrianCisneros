@@ -55,7 +55,7 @@ function consultarClimaBucerias() {
     .then(response => response.json())
     .then(datos => {
       obtenerClima(datos[0].lat, datos[0].lon);
-      setInterval(() => obtenerClima(datos[0].lat, datos[0].lon), 1000);
+      setInterval(() => obtenerClima(datos[0].lat, datos[0].lon), 600000);
     })
     .catch(error => {
       swal('Error en la llamada a la API de geolocalización:' + " " + error);
