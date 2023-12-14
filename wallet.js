@@ -4,6 +4,16 @@ let state_code = "Nayarit"
 let country_code = "MX"
 let limit = 1
 
+// Obtén el botón y agrega un evento de clic
+function fullScreen(){
+      document.getElementById("fullscreenButton");
+      document.body.requestFullscreen = document.body.requestFullscreen || document.body.mozRequestFullscreen || document.body.msRequestFullscreen || document.body.webkitRequestFullscreen;
+  
+      if (document.body.requestFullscreen) {
+          document.body.requestFullscreen();
+      }
+}
+
 //  Definición de la clase Fecha, que representa la fecha actual
 class Fecha {
   constructor() {
@@ -50,29 +60,53 @@ let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 // Si el nombre está almacenado, se muestra un mensaje de bienvenida
 
 // API http://api.openweathermap.org/
-function consultarClimaBucerias() {
-  fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`)
-    .then(response => response.json())
-    .then(datos => {
-      obtenerClima(datos[0].lat, datos[0].lon);
-    })
-    .catch(error => {
-      swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
-    });
+async function consultarClimaBucerias() {
+  try {
+    const response = await fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`);
+    const datos = await response.json();
+    obtenerClima(datos[0].lat, datos[0].lon);
+  } catch (error) {
+    swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
+  }
 }
 
-function obtenerClima(lat, lon) {
-  fetch(`https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
-    .then(response => response.json())
-    .then(({ main, name, sys }) => {
-      let clima = document.getElementById("climaBucerias");
-      clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
-    })
-    .catch(error => {
-      swal('Error en la llamada a la API del clima:' + " " + error);
-    });
+async function obtenerClima(lat, lon) {
+  try {
+    const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+    const { main, name, sys } = await response.json();
+    let clima = document.getElementById("climaBucerias");
+    clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
+  } catch (error) {
+    swal('Error en la llamada a la API del clima:' + " " + error);
+  }
 }
+
 consultarClimaBucerias();
+
+
+// function consultarClimaBucerias() {
+//   fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`)
+//     .then(response => response.json())
+//     .then(datos => {
+//       obtenerClima(datos[0].lat, datos[0].lon);
+//     })
+//     .catch(error => {
+//       swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
+//     });
+// }
+
+// function obtenerClima(lat, lon) {
+//   fetch(`https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+//     .then(response => response.json())
+//     .then(({ main, name, sys }) => {
+//       let clima = document.getElementById("climaBucerias");
+//       clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
+//     })
+//     .catch(error => {
+//       swal('Error en la llamada a la API del clima:' + " " + error);
+//     });
+// }
+// consultarClimaBucerias();
 
 // API https://criptoya.com/
 fetch('https://criptoya.com/api/dolar')
