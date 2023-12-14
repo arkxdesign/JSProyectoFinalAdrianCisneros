@@ -57,7 +57,7 @@ function consultarClimaBucerias() {
       obtenerClima(datos[0].lat, datos[0].lon);
     })
     .catch(error => {
-      swal('Error en la llamada a la API de geolocalización:' + " " + error);
+      swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
     });
 }
 
