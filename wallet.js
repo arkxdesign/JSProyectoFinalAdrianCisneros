@@ -42,112 +42,126 @@ let nombreCompletoLocalStorageExtraer = localStorage.getItem("nombre");
 let nombreCompletoLocalStorage = JSON.parse(nombreCompletoLocalStorageExtraer)
 let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 // Si el nombre está almacenado, se muestra un mensaje de bienvenida
-if (nombreCompletoLocalStorage) {
-  const bienvenidoDeNuevo = document.createElement("div")
-  bienvenidoDeNuevo.innerHTML= `<h5>Bienvenido de nuevo:</h5>
-                   <h3>${nombreCompletoLocalStorage}</h3>`
-  bienvenidoUsuario.appendChild(bienvenidoDeNuevo)
-  
-  let bienvenidoUsuarioSaldo = document.getElementById("bienvenidoUsuario");
-  const tituloSaldoInicial = document.createElement("div");
-  tituloSaldoInicial.innerHTML = `<h5>Tu saldo es de:</h5>
-                                  <h3>$ ${saldo.toFixed(2)} MXN</h3>
-                                  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups" style="justify-content: center">
-                                    <div class="btn-group me-2" role="group" aria-label="First group">
-                                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#movimientosModal" onclick="{ingresarSaldo()}">INGRESOS</button>
-                                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#movimientosModal" onclick="{restarSaldo()}">EGRESOS</button>
-                                      <button type="button" class="btn btn-outline-secondary" onclick="{redirectToSearch()}">BUSCAR</button>
-                                      <button type="button" class="btn btn-outline-secondary"><a href="logout.html">SALIR</a></button>
-                                    </div>
-                                  </div>`;
-  bienvenidoUsuarioSaldo.appendChild(tituloSaldoInicial);
 
-  let movimientosWallet = document.getElementById("wallet");
-  
-  const tablaMovimientos = document.createElement("table");
-  tablaMovimientos.classList.add("table");
-  
-  const thead = document.createElement("thead");
-  const trHead = document.createElement("tr");
-  
-  const thFecha = document.createElement("th");
-  thFecha.scope = "col";
-  thFecha.textContent = "Fecha";
-  trHead.appendChild(thFecha);
-  
-  const thReferencia = document.createElement("th");
-  thReferencia.scope = "col";
-  thReferencia.textContent = "Referencia";
-  trHead.appendChild(thReferencia);
-  
-  const thMovimiento = document.createElement("th");
-  thMovimiento.scope = "col";
-  thMovimiento.textContent = "Movimiento";
-  trHead.appendChild(thMovimiento);
-  
-  thead.appendChild(trHead);
-  tablaMovimientos.appendChild(thead);
-  
-  const tbody = document.createElement("tbody");
-  
-  // Iterar sobre cada elemento en el array
-  wallet.forEach((movimiento) => {
-    const tr = document.createElement("tr");
-  
-    const tdFecha = document.createElement("td");
-    tdFecha.textContent = movimiento.fecha;
-    tr.appendChild(tdFecha);
-  
-    const tdReferencia = document.createElement("td");
-    tdReferencia.textContent = movimiento.referencia;
-    tr.appendChild(tdReferencia);
-  
-    const tdMovimiento = document.createElement("td");
-    tdMovimiento.innerHTML = `$ ${movimiento.movimiento.toFixed(2)} MXN`;
-    tr.appendChild(tdMovimiento);
-  
-    tbody.appendChild(tr);
-  });
-  
-  tablaMovimientos.appendChild(tbody);
-  movimientosWallet.appendChild(tablaMovimientos);
-  
-} else {
-  const tituloNombre = document.createElement("div");
-  const inputNombre = document.createElement("input");
-  inputNombre.classList.add("form-control");
-  const btnSiguiente = document.createElement("button");
-  btnSiguiente.type = "button";
-  btnSiguiente.classList.add("btn", "btn-outline-secondary" ,"mt-2");
-  btnSiguiente.textContent = "Siguiente";
+fetch('https://criptoya.com/api/dolar')
+    .then((response) => response.json()) //Transformo el contenido de la promesa a JSON
+    .then((info) => {
+      console.log(info)
+    });
 
-  tituloNombre.innerHTML = `<h1>Bienvenido</h1>
-                            <h5>Ingresa tu nombre completo</h5>`;
-  bienvenidoUsuario.appendChild(tituloNombre);
-  bienvenidoUsuario.appendChild(inputNombre);
-  bienvenidoUsuario.appendChild(btnSiguiente);
 
-  btnSiguiente.addEventListener("click", function () {
-    const nombreCompleto = inputNombre.value.trim();
-    if (nombreCompleto.length >= 5) {
-      localStorage.setItem("nombre", JSON.stringify(nombreCompleto));
-      const registroUsuarioBienvenida = document.createElement("div");
-      registroUsuarioBienvenida.innerHTML = `<h5>Bienvenido:</h5>
-                                            <h3>${nombreCompleto}</h3>`;
-      bienvenidoUsuario.innerHTML = "";
-      bienvenidoUsuario.appendChild(registroUsuarioBienvenida);
-      verificarSaldoInicial();
-    } else {
-      swal("Ingresa un nombre completo válido (mínimo 5 caracteres).");
-    }
-  });
+fetch('https://criptoya.com/api/dolar')
+    .then((response) => response.json()) //Transformo el contenido de la promesa a JSON
+    .then(({ oficial, qatar, solidario}) => {
 
-  inputNombre.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      btnSiguiente.click();
-    }
-  });
-}
+  if (nombreCompletoLocalStorage) {
+    const bienvenidoDeNuevo = document.createElement("div")
+    bienvenidoDeNuevo.innerHTML= `<marquee width="400px" direction="left">Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario} </marquee>
+                                  <h5>Bienvenido de nuevo:</h5>
+                    <h3>${nombreCompletoLocalStorage}</h3>`
+    bienvenidoUsuario.appendChild(bienvenidoDeNuevo)
+
+    let bienvenidoUsuarioSaldo = document.getElementById("bienvenidoUsuario");
+    const tituloSaldoInicial = document.createElement("div");
+    tituloSaldoInicial.innerHTML = `<h5>Tu saldo es de:</h5>
+                                    <h3>$ ${saldo.toFixed(2)} MXN</h3>
+                                    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups" style="justify-content: center">
+                                      <div class="btn-group me-2" role="group" aria-label="First group">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#movimientosModal" onclick="{ingresarSaldo()}">INGRESOS</button>
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#movimientosModal" onclick="{restarSaldo()}">EGRESOS</button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="{redirectToSearch()}">BUSCAR</button>
+                                        <button type="button" class="btn btn-outline-secondary"><a href="logout.html">SALIR</a></button>
+                                      </div>
+                                    </div>`;
+    bienvenidoUsuarioSaldo.appendChild(tituloSaldoInicial);
+
+    let movimientosWallet = document.getElementById("wallet");
+    
+    const tablaMovimientos = document.createElement("table");
+    tablaMovimientos.classList.add("table");
+    
+    const thead = document.createElement("thead");
+    const trHead = document.createElement("tr");
+    
+    const thFecha = document.createElement("th");
+    thFecha.scope = "col";
+    thFecha.textContent = "Fecha";
+    trHead.appendChild(thFecha);
+    
+    const thReferencia = document.createElement("th");
+    thReferencia.scope = "col";
+    thReferencia.textContent = "Referencia";
+    trHead.appendChild(thReferencia);
+    
+    const thMovimiento = document.createElement("th");
+    thMovimiento.scope = "col";
+    thMovimiento.textContent = "Movimiento";
+    trHead.appendChild(thMovimiento);
+    
+    thead.appendChild(trHead);
+    tablaMovimientos.appendChild(thead);
+    
+    const tbody = document.createElement("tbody");
+    
+    // Iterar sobre cada elemento en el array
+    wallet.forEach((movimiento) => {
+      const tr = document.createElement("tr");
+    
+      const tdFecha = document.createElement("td");
+      tdFecha.textContent = movimiento.fecha;
+      tr.appendChild(tdFecha);
+    
+      const tdReferencia = document.createElement("td");
+      tdReferencia.textContent = movimiento.referencia;
+      tr.appendChild(tdReferencia);
+    
+      const tdMovimiento = document.createElement("td");
+      tdMovimiento.innerHTML = `$ ${movimiento.movimiento.toFixed(2)} MXN`;
+      tr.appendChild(tdMovimiento);
+    
+      tbody.appendChild(tr);
+    });
+    
+    tablaMovimientos.appendChild(tbody);
+    movimientosWallet.appendChild(tablaMovimientos);
+    
+  } else {
+    const tituloNombre = document.createElement("div");
+    const inputNombre = document.createElement("input");
+    inputNombre.classList.add("form-control");
+    const btnSiguiente = document.createElement("button");
+    btnSiguiente.type = "button";
+    btnSiguiente.classList.add("btn", "btn-outline-secondary" ,"mt-2");
+    btnSiguiente.textContent = "Siguiente";
+
+    tituloNombre.innerHTML = `<h1>Bienvenido</h1>
+                              <h5>Ingresa tu nombre completo</h5>`;
+    bienvenidoUsuario.appendChild(tituloNombre);
+    bienvenidoUsuario.appendChild(inputNombre);
+    bienvenidoUsuario.appendChild(btnSiguiente);
+
+    btnSiguiente.addEventListener("click", function () {
+      const nombreCompleto = inputNombre.value.trim();
+      if (nombreCompleto.length >= 5) {
+        localStorage.setItem("nombre", JSON.stringify(nombreCompleto));
+        const registroUsuarioBienvenida = document.createElement("div");
+        registroUsuarioBienvenida.innerHTML = `<h5>Bienvenido:</h5>
+                                              <h3>${nombreCompleto}</h3>`;
+        bienvenidoUsuario.innerHTML = "";
+        bienvenidoUsuario.appendChild(registroUsuarioBienvenida);
+        verificarSaldoInicial();
+      } else {
+        swal("Ingresa un nombre completo válido (mínimo 5 caracteres).");
+      }
+    });
+
+    inputNombre.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        btnSiguiente.click();
+      }
+    });
+  }
+});
 
 function verificarSaldoInicial() {
   // Se obtiene el saldo inicial almacenado en el localStorage con la clave "wallet"
@@ -324,3 +338,4 @@ function restarSaldo() {
 function redirectToSearch() {
   window.location.href = 'search.html';
 }
+
