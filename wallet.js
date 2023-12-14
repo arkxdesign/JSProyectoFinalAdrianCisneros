@@ -5,15 +5,12 @@ let country_code = "MX"
 let limit = 1
 
 // Obtén el botón y agrega un evento de clic
-function fullScreen(){
-      document.getElementById("fullscreenButton");
-      document.body.requestFullscreen = document.body.requestFullscreen || document.body.mozRequestFullscreen || document.body.msRequestFullscreen || document.body.webkitRequestFullscreen;
-  
-      if (document.body.requestFullscreen) {
-          document.body.requestFullscreen();
-      }
+function fullScreen() {
+  document.body.requestFullscreen = document.body.requestFullscreen || document.body.mozRequestFullscreen || document.body.msRequestFullscreen || document.body.webkitRequestFullscreen;
+  if (document.body.requestFullscreen) {
+      document.body.requestFullscreen();
+  }
 }
-
 //  Definición de la clase Fecha, que representa la fecha actual
 class Fecha {
   constructor() {
