@@ -74,7 +74,7 @@ function consultarClimaBucerias() {
 }
 
 function obtenerClima(lat, lon) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5ba636d8bbd06cb95381394b4118b1bc&units=metric`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
     .then(response => response.json())
     .then(({ main, name, sys }) => {
       let clima = document.getElementById("climaBucerias");
