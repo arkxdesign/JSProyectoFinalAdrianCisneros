@@ -57,7 +57,7 @@ let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 // Si el nombre está almacenado, se muestra un mensaje de bienvenida
 
 // API http://api.openweathermap.org/
-const apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=Bucer%C3%ADas,Nayarit,MX&limit=1&appid=5ba636d8bbd06cb95381394b4118b1bc";
+const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`;
 const corsProxyUrl = "https://cors-anywhere.herokuapp.com/";
 
 function consultarClimaBucerias() {
