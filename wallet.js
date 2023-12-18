@@ -63,7 +63,7 @@ const corsProxyUrl = "https://cors-anywhere.herokuapp.com/";
 function consultarClimaBucerias() {
   fetch(corsProxyUrl + apiUrl, {
     headers: {
-      'Origin': 'https://arkxdesign.github.io/JSProyectoFinalAdrianCisneros/'
+      'Origin': 'https://api.openweathermap.org/'
     }
   })
     .then(response => response.json())
@@ -71,7 +71,7 @@ function consultarClimaBucerias() {
       obtenerClima(datos[0].lat, datos[0].lon);
     })
     .catch(error => {
-      swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
+      swal('Error en la llamada a la API de https://api.openweathermap.org/' + " " + error);
     });
 }
 
