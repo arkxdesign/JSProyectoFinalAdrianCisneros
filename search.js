@@ -1,19 +1,4 @@
-// //  Definición de la clase Fecha, que representa la fecha actual
-// class Fecha {
-//     constructor() {
-//       this.fecha = new Date().toLocaleString();
-//     }
-//   }
-  
-//   // Definición de la clase Transaccion que hereda de Fecha
-//   class Transaccion extends Fecha {
-//     constructor(fecha, referencia, movimiento) {
-//       super(fecha); // Llama al constructor de la clase padre (Fecha)
-//       this.referencia = referencia; // Referencia de la transacción
-//       this.movimiento = movimiento; // Monto de la transacción
-//     }
-//   }
-  
+
   // Se obtiene el contenido almacenado en el localStorage con la clave "wallet"
   let walletLocalStorage = localStorage.getItem("wallet");
   // Se parsea el contenido a JSON para obtener un array de movimientos

@@ -60,33 +60,30 @@ let country_code = "MX"
 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city_name},${country_code}&appid=${API_KEY}`;
 const corsProxyUrl = "https://cors-anywhere.herokuapp.com/";
 
-function consultarClimaBucerias() {
-  fetch(apiUrl)
-    .then(response => response.json())
-    .then(datos => {
-      let lat = datos.coord.lat
-      let lon = datos.coord.lon
-      obtenerClima(lat, lon);
-    })
-    .catch(error => {
-      swal('Error en la llamada a la API de https://api.openweathermap.org/' + " " + error);
-    });
+async function consultarClimaBucerias() {
+  try {
+    const response = await fetch(apiUrl);
+    const datos = await response.json();
+    const lat = datos.coord.lat;
+    const lon = datos.coord.lon;
+    await obtenerClima(lat, lon);
+  } catch (error) {
+    swal('Error en la llamada a la API de https://api.openweathermap.org/' + " " + error);
+  }
 }
 
-function obtenerClima(lat, lon) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
-    .then(response => response.json())
-    .then(({ main, name, sys }) => {
-      let clima = document.getElementById("climaBucerias");
-      clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
-    })
-    .catch(error => {
-      swal('Error en la llamada a la API del clima:' + " " + error);
-    });
+async function obtenerClima(lat, lon) {
+  try {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+    const { main, name, sys } = await response.json();
+    const clima = document.getElementById("climaBucerias");
+    clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
+  } catch (error) {
+    swal('Error en la llamada a la API del clima:' + " " + error);
+  }
 }
 
 consultarClimaBucerias();
-
 
 // API https://criptoya.com/
 fetch('https://criptoya.com/api/dolar')
