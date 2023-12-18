@@ -1,9 +1,3 @@
-const API_KEY = "5ba636d8bbd06cb95381394b4118b1bc";
-let city_name = "Bucerías"
-let state_code = "Nayarit"
-let country_code = "MX"
-let limit = 1
-
 // Obtén el botón y agrega un evento de clic
 function fullScreen() {
   document.body.requestFullscreen = document.body.requestFullscreen || document.body.mozRequestFullscreen || document.body.msRequestFullscreen || document.body.webkitRequestFullscreen;
@@ -57,18 +51,22 @@ let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 // Si el nombre está almacenado, se muestra un mensaje de bienvenida
 
 // API http://api.openweathermap.org/
-const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`;
+const API_KEY = "5ba636d8bbd06cb95381394b4118b1bc";
+let city_name = "Bucerías"
+let state_code = "Nayarit"
+let country_code = "MX"
+
+
+const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city_name},${country_code}&appid=${API_KEY}`;
 const corsProxyUrl = "https://cors-anywhere.herokuapp.com/";
 
 function consultarClimaBucerias() {
-  fetch(corsProxyUrl + apiUrl, {
-    headers: {
-      'Origin': 'https://api.openweathermap.org/'
-    }
-  })
+  fetch(apiUrl)
     .then(response => response.json())
     .then(datos => {
-      obtenerClima(datos[0].lat, datos[0].lon);
+      let lat = datos.coord.lat
+      let lon = datos.coord.lon
+      obtenerClima(lat, lon);
     })
     .catch(error => {
       swal('Error en la llamada a la API de https://api.openweathermap.org/' + " " + error);
@@ -76,7 +74,7 @@ function consultarClimaBucerias() {
 }
 
 function obtenerClima(lat, lon) {
-  fetch(corsProxyUrl + `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5ba636d8bbd06cb95381394b4118b1bc&units=metric`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5ba636d8bbd06cb95381394b4118b1bc&units=metric`)
     .then(response => response.json())
     .then(({ main, name, sys }) => {
       let clima = document.getElementById("climaBucerias");
