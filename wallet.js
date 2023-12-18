@@ -57,28 +57,38 @@ let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 // Si el nombre está almacenado, se muestra un mensaje de bienvenida
 
 // API http://api.openweathermap.org/
-async function consultarClimaBucerias() {
-  try {
-    const response = await fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${state_code},${country_code}&limit=${limit}&appid=${API_KEY}`);
-    const datos = await response.json();
-    obtenerClima(datos[0].lat, datos[0].lon);
-  } catch (error) {
-    swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
-  }
+const apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=Bucer%C3%ADas,Nayarit,MX&limit=1&appid=5ba636d8bbd06cb95381394b4118b1bc";
+const corsProxyUrl = "https://cors-anywhere.herokuapp.com/";
+
+function consultarClimaBucerias() {
+  fetch(corsProxyUrl + apiUrl, {
+    headers: {
+      'Origin': 'https://arkxdesign.github.io/JSProyectoFinalAdrianCisneros/'
+    }
+  })
+    .then(response => response.json())
+    .then(datos => {
+      obtenerClima(datos[0].lat, datos[0].lon);
+    })
+    .catch(error => {
+      swal('Error en la llamada a la API de http://api.openweathermap.org/' + " " + error);
+    });
 }
 
-async function obtenerClima(lat, lon) {
-  try {
-    const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
-    const { main, name, sys } = await response.json();
-    let clima = document.getElementById("climaBucerias");
-    clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
-  } catch (error) {
-    swal('Error en la llamada a la API del clima:' + " " + error);
-  }
+function obtenerClima(lat, lon) {
+  fetch(corsProxyUrl + `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5ba636d8bbd06cb95381394b4118b1bc&units=metric`)
+    .then(response => response.json())
+    .then(({ main, name, sys }) => {
+      let clima = document.getElementById("climaBucerias");
+      clima.innerHTML = `<h6>Humedad: ${main.humidity}% | Temperatura: ${main.temp}°C | Ciudad: ${name} ${sys.country}</h6>`;
+    })
+    .catch(error => {
+      swal('Error en la llamada a la API del clima:' + " " + error);
+    });
 }
 
 consultarClimaBucerias();
+
 
 // API https://criptoya.com/
 fetch('https://criptoya.com/api/dolar')
