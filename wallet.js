@@ -50,16 +50,12 @@ let nombreCompletoLocalStorage = JSON.parse(nombreCompletoLocalStorageExtraer)
 let bienvenidoUsuario = document.getElementById("bienvenidoUsuario")
 // Si el nombre está almacenado, se muestra un mensaje de bienvenida
 
-// API http://api.openweathermap.org/
 const API_KEY = "5ba636d8bbd06cb95381394b4118b1bc";
 let city_name = "Bucerías"
-let state_code = "Nayarit"
 let country_code = "MX"
-
-
 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city_name},${country_code}&appid=${API_KEY}`;
-const corsProxyUrl = "https://cors-anywhere.herokuapp.com/";
 
+// API http://api.openweathermap.org/
 async function consultarClimaBucerias() {
   try {
     const response = await fetch(apiUrl);
