@@ -82,13 +82,13 @@ async function obtenerClima(lat, lon) {
 consultarClimaBucerias();
 
 // API https://criptoya.com/
-fetch('https://criptoya.com/api/dolar')
+fetch('https://criptoya.com/api/bitsoalpha/btc/usd/0.1')
     .then((response) => response.json()) //Transformo el contenido de la promesa a JSON
-    .then(({ oficial, qatar, solidario}) => {
+    .then(({ ask, totalAsk, bid, totalBid}) => {
 
   if (nombreCompletoLocalStorage) {
     const bienvenidoDeNuevo = document.createElement("div")
-    bienvenidoDeNuevo.innerHTML= `<marquee behavior="scroll" width="400px" direction="left" scrollamount="2">Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario}, Oficial: ${oficial}, Qatar: ${qatar}, Solidario: ${solidario} </marquee>
+    bienvenidoDeNuevo.innerHTML= `<marquee behavior="scroll" width="400px" direction="left" scrollamount="2">BTC MIN: ${ask} | BTC MAX: ${totalAsk} | BTC OFERTA: ${bid} | BTC OFERTA TOTAL: ${totalBid} | BTC MIN: ${ask} | BTC MAX: ${totalAsk} | BTC OFERTA: ${bid} | BTC OFERTA TOTAL: ${totalBid} | BTC MIN: ${ask} | BTC MAX: ${totalAsk} | BTC OFERTA: ${bid} | BTC OFERTA TOTAL: ${totalBid} </marquee>
                                   <h5>Bienvenido de nuevo:</h5>
                     <h3>${nombreCompletoLocalStorage}</h3>`
     bienvenidoUsuario.appendChild(bienvenidoDeNuevo)
